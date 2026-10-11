@@ -1,6 +1,6 @@
 // PalmerPenguinsM6.java
-//
-//
+// Saryn Vasallo
+// October 11, 2026
 // Reads the CSV file and parses data into arrays using user-defined methods
 
 import java.io.*;
@@ -19,21 +19,27 @@ public class PalmerPenguinsM6 {
     public static void main(String[] args) {
         // TODO 1: Call the readSpeciesData method and store the result in a 
         // String array named speciesData
+        String[] speciesData = readSpeciesData(FILE_NAME);
         
         
         // TODO 2: Call the initializeSpeciesCount method and store the 
         // result in an int array named speciesCount
+        int[] speciesCount = initializeSpeciesCount();
         
 
         // TODO 3: Use the isDataEmpty method to check if speciesData is empty
+        if (isDataEmpty(speciesData)) {
+        }
         
 
         // TODO 4: Call the countSpecies method, passing speciesData and 
         // speciesCount as arguments
+        countSpecies(speciesData, speciesCount);
         
 
         // TODO 5: Call the printSpeciesCount method, passing speciesCount 
         // as an argument
+        printSpeciesCount(speciesCount);
         
     }
 
@@ -41,18 +47,33 @@ public class PalmerPenguinsM6 {
      * TODO 1: Create a method named readSpeciesData that calls CSVReader.readFile 
      *         to read column 1 from the CSV file and returns a String array.
      */
+     public static String[] readSpeciesData(String filePath) {
+         //Use CSVReader.readFIle to read column
+         String[] speciesData = CSVReader.readFile(filePath, 1);
+         return speciesData;
+     }
+     
 
 
     /**
      * TODO 2: Create a method named initializeSpeciesCount that returns 
      *         a new int array of size NUM_SPECIES.
      */
+     public static int[] initializeSpeciesCount() {
+         // Return new int array
+         return new int[NUM_SPECIES];
+     }
+
 
 
     /**
      * TODO 3: Create a method named isDataEmpty that takes a String[] array 
      *         as a parameter and returns true if its length is 0, otherwise false.
      */
+     public static boolean isDataEmpty(String[] data) {
+         return data.length == 0;
+     }
+
 
 
     /**
@@ -60,12 +81,50 @@ public class PalmerPenguinsM6 {
      *         and an int[] speciesCount as parameters. This method should iterate 
      *         through speciesData and update speciesCount accordingly.
      */
+     public static void countSpecies(String[] speciesData, int[] speciesCount) {
+     int i;
+     String species;
+     
+         //Iterate through speciesData
+         for (i = 0; i < speciesData.length; i++) {
+             species = speciesData[i];
+             
+             if (species == null) {
+                 continue;
+             }
+             
+             
+             //Update speciesCount
+             switch (species.trim().toLowerCase()) {
+                 case "chinstrap":
+                     speciesCount[0]++;
+                     break;
+                 case "gentoo":
+                     speciesCount[1]++;
+                     break;
+                 case "adelie":
+                     speciesCount[2]++;
+                     break;
+                 default:
+                     break;
+             }
+         }
+     }
+ 
+     
 
 
     /**
      * TODO 5: Create a method named printSpeciesCount that takes an int[] speciesCount 
      *         as a parameter and prints the count of each species.
      */
+     public static void printSpeciesCount(int[] speciesCount) {
+         //Print the count
+         System.out.println("Chinstrap: " + speciesCount[0]);
+         System.out.println("Gentoo: " + speciesCount[1]);
+         System.out.println("Adelie: " + speciesCount[2]);
+     }
+  
 
 }
 
